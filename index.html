@@ -4,11 +4,175 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro na Produtora</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2260537672172205"
+     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS -->
+  <style>
+    /* Estilos CSS incorporados */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+      animation: fadeIn 1s ease-in-out;
+      text-align: center; /* Centraliza o conteúdo */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-container {
+      max-width: 200px;
+      margin: 0 auto 20px; /* Espaço abaixo da logo */
+    }
+
+    .logo {
+      width: 100%;
+      height: auto;
+    }
+
+    .form-container h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left; /* Alinha os campos à esquerda */
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group input[type="url"],
+    .form-group input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #333;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group input[type="tel"]:focus,
+    .form-group input[type="url"]:focus,
+    .form-group input[type="file"]:focus {
+      border-color: #6a11cb;
+      box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+      outline: none;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      transform: translateY(-2px);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    .form-group input[type="file"] {
+      padding: 10px;
+      background: #f9f9f9;
+      border: 2px dashed #ddd;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .form-group input[type="file"]:hover {
+      border-color: #6a11cb;
+      background: #f1f1f1;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 20px;
+      }
+
+      .form-container h1 {
+        font-size: 2rem;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="tel"],
+      .form-group input[type="url"],
+      .form-group input[type="file"] {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+
+      button[type="submit"] {
+        padding: 12px;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Container do formulário -->
   <div class="form-container">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="images/logo.png" alt="Logo da Produtora" class="logo">
+    </div>
+
+    <!-- Título -->
     <h1>Cadastro na Produtora</h1>
+
+    <!-- Formulário de cadastro -->
     <form id="cadastroForm">
       <div class="form-group">
         <label for="nome_completo">Nome Completo:</label>
@@ -86,7 +250,9 @@
         if (response.ok) {
           alert('Cadastro enviado com sucesso!');
         } else {
-          alert('Erro ao enviar o cadastro.');
+          const errorData = await response.json(); // Captura o erro retornado pelo Supabase
+          console.error('Erro ao enviar o cadastro:', errorData);
+          alert(`Erro ao enviar o cadastro: ${errorData.message || 'Erro desconhecido'}`);
         }
       } catch (error) {
         console.error('Erro:', error);
