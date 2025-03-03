@@ -1,0 +1,11 @@
+{
+    "name": "usurio/sitecadastro",
+    "autoload": {
+        "psr-4": {
+            "Usurio\\Sitecadastro\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

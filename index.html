@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro na Produtora</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS -->
+</head>
+<body>
+  <div class="form-container">
+    <h1>Cadastro na Produtora</h1>
+    <form id="cadastroForm">
+      <div class="form-group">
+        <label for="nome_completo">Nome Completo:</label>
+        <input type="text" id="nome_completo" name="nome_completo" required>
+      </div>
+      <div class="form-group">
+        <label for="nome_artista">Nome do Artista/Selo:</label>
+        <input type="text" id="nome_artista" name="nome_artista" required>
+      </div>
+      <div class="form-group">
+        <label for="documento">Número do Documento (RG/CPF/CNPJ):</label>
+        <input type="text" id="documento" name="documento" required>
+      </div>
+      <div class="form-group">
+        <label for="foto_documento">Foto do Documento de Identidade:</label>
+        <input type="file" id="foto_documento" name="foto_documento" accept="image/*" required>
+      </div>
+      <div class="form-group">
+        <label for="endereco">Endereço Completo:</label>
+        <input type="text" id="endereco" name="endereco" required>
+      </div>
+      <div class="form-group">
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" name="cidade" required>
+      </div>
+      <div class="form-group">
+        <label for="cep">Código Postal (CEP):</label>
+        <input type="text" id="cep" name="cep" required>
+      </div>
+      <div class="form-group">
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail de Registro:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="youtube">Link do YouTube:</label>
+        <input type="url" id="youtube" name="youtube">
+      </div>
+      <div class="form-group">
+        <label for="spotify">Link do Spotify:</label>
+        <input type="url" id="spotify" name="spotify">
+      </div>
+      <button type="submit">Enviar Cadastro</button>
+    </form>
+  </div>
+
+  <script>
+    // Configurações do Supabase
+    const SUPABASE_URL = 'https://wwxjlrxzplcttpwcqepg.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3eGpscnh6cGxjdHRwd2NxZXBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMTg4NTIsImV4cCI6MjA1NjU5NDg1Mn0.evqffg5gepKGMuhLC5qDXjxfUA14r5V9uzvVV4C-wks';
+
+    // Função para enviar os dados
+    document.getElementById('cadastroForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Coletar os dados do formulário
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // Enviar os dados para o Supabase
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/cadastros`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          alert('Cadastro enviado com sucesso!');
+        } else {
+          alert('Erro ao enviar o cadastro.');
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao enviar o cadastro.');
+      }
+    });
+  </script>
+</body>
+</html>
